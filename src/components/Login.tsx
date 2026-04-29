@@ -24,7 +24,14 @@ export default function Login({ onLogin }: LoginProps) {
       const token = await login(serverUrl, username, password);
       onLogin(serverUrl, token);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to login. Please check your credentials and server URL.");
+      let message = err instanceof Error ? err.message : "Failed to login.";
+      
+      // Handle the common "Failed to fetch" error with more context
+      if (message === "Failed to fetch") {
+        message = "Network error (Failed to fetch). This is usually caused by CORS configuration on your server or using HTTP on an HTTPS site (Mixed Content). Please ensure your server allows requests from this domain and uses HTTPS.";
+      }
+      
+      setError(message);
     } finally {
       setIsLoading(false);
     }

@@ -42,7 +42,13 @@ export default function Explorer({ auth, onLogout }: ExplorerProps) {
       const data = await api.getResources(path);
       setResource(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load files");
+      let message = err instanceof Error ? err.message : "Failed to load files";
+      
+      if (message === "Failed to fetch") {
+        message = "Network error (Failed to fetch). This is usually caused by CORS issues on your server or your server is currently offline. Please verify your Nginx Proxy Manager configuration.";
+      }
+      
+      setError(message);
     } finally {
       setIsLoading(false);
     }
