@@ -1,0 +1,6 @@
+{
+  "name": "FileBrowser Client",
+  "description": "A mobile-optimized client for connecting to and managing files on your self-hosted FileBrowser instance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
